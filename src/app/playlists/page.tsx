@@ -2,6 +2,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { PlaylistItem } from '@/components/playlist-item';
+import { NewPlaylist } from '@/components/utils-item';
 
 export default function PlaylistsPage() {
   const [playlist, setPlaylist] = useState<any[]>([]);
@@ -28,7 +29,7 @@ export default function PlaylistsPage() {
   return (
     <>
       <h1>Playlists route</h1>
-      
+      <NewPlaylist setPlaylist={setPlaylist}/>
       {playlist ? (
         <div>
         {playlist.map((list, index) => (

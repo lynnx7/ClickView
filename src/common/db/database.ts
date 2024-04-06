@@ -57,6 +57,22 @@ export const Database = {
     }
 
   },
+  addPlaylist: (playlistName: string, playlistDesc: string): Playlist[] => {
+    const playlists = Database.playlists();
+    const newPlaylist: Playlist = {
+      id: playlists.reduce((max, playlist) => {
+        return playlist.id > max ? playlist.id : max;
+    }, 0) + 1,
+      name: playlistName,
+      description: playlistDesc,
+      videoIds: []
+    };
+    
+    playlists.push(newPlaylist)
+    fs.writeFileSync('src/common/db/playlists.json', JSON.stringify(playlists, null, 2));
+    return playlists
+
+  },
 
   addVidToList:(videoId: number, listId: number):Boolean=>{
 
