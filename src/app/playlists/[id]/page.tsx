@@ -38,8 +38,8 @@ export default function PlaylistPage({ params }: { params: { id: string } }) {
       {videolist ? (
         <div>
         {videolist.map((video, index) => (
-          <VideoItem key={index} video={video}
-          />
+          <VideoItem key={index} video={video} inList={true} listId={Number(params.id)} setVideolist={setVideolist} 
+          handleShow={() => true} setSelectVid={() => true} setSelectName={() => true} />
           
         ))}
         </div>

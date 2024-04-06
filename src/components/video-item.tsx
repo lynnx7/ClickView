@@ -1,12 +1,33 @@
 import { Col, Image, Row } from 'react-bootstrap';
 import { Video } from '../interfaces/video';
 
+import {AddVideoButton, RemoveVideoButton} from '@/components/utils-item';
+
+interface VideoItemProps {
+  video: Video;
+  inList:Boolean;
+  listId:Number;
+  setVideolist:Function;
+
+  handleShow: Function;
+  setSelectVid:Function
+  setSelectName: Function
+}
+
 interface VideoItemProps {
   video: Video;
 }
 
 export default function VideoItem(props: VideoItemProps) {
-  const { video } = props;
+  const {
+    video,
+    inList,
+    listId,
+    setVideolist,
+    handleShow,
+    setSelectVid,
+    setSelectName
+  } = props;
 
   return (
     <Row>
@@ -16,6 +37,10 @@ export default function VideoItem(props: VideoItemProps) {
       <Col xs='12' md='9' className='mb-3'>
         <h2 className='h4'>{video.name}</h2>
         <p>{video.description}</p>
+        {inList ? <RemoveVideoButton id={Number(video.id)} listId={listId} setVideolist={setVideolist}/>: 
+                  <AddVideoButton handleShow={handleShow} setSelectVid={setSelectVid} vid={video.id} setSelectName={setSelectName}
+                  selectName={video.name}
+                  /> }
       </Col>
     </Row>
   )
