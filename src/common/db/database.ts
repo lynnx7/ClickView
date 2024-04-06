@@ -1,5 +1,6 @@
 import { Playlist } from '@/interfaces/playlist';
 import { Video } from '@/interfaces/video';
+import fs from 'fs';
 
 export const Database = {
   playlists: (): Playlist[] => {
@@ -30,7 +31,52 @@ export const Database = {
     });
 
     return playlistVideos;
-  }
+  },
+
+  removeVideo: (videoId:number,playlistId: number): Video[] => {
+
+    try {
+      const playlists = Database.playlists();
+      const playlistIndex = playlists.findIndex(playlist => playlist.id === playlistId);
+  
+      if (playlistIndex === -1) {
+        throw new Error(`Playlist with ID ${playlistId} not found.`);
+      }
+  
+      let playlist = playlists[playlistIndex];
+      playlist.videoIds = playlist.videoIds.filter(item => item !== videoId);
+      playlists[playlistIndex] = playlist;
+  
+      // 将更新后的播放列表写回到 JSON 文件中
+      fs.writeFileSync('src/common/db/playlists.json', JSON.stringify(playlists, null, 2));
+  
+      return Database.videosInPlaylist(playlist.id);
+    } catch (error) {
+      console.error('Error removing video from playlist:', error);
+      return [];
+    }
+
+  },
+
+  addVidToList:(videoId: number, listId: number):Boolean=>{
+
+    const playlists = Database.playlists();
+    const playlistIndex = playlists.findIndex(playlist => playlist.id === listId);
+
+    console.log(videoId,listId)
+    if (playlistIndex === -1) {
+      throw new Error(`Playlist with ID ${listId} not found.`);
+    }
+
+    let playlist = playlists[playlistIndex];
+    playlist.videoIds.push(videoId);
+    playlists[playlistIndex] = playlist;
+
+    fs.writeFileSync('src/common/db/playlists.json', JSON.stringify(playlists, null, 2));
+
+    return true
+
+  },
 
 
 }
