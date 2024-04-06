@@ -73,6 +73,28 @@ export const Database = {
     return playlists
 
   },
+  removePlaylist: (playlistId: number): Playlist[] => {
+
+    try {
+      console.log("Deleting", playlistId)
+      const playlists = Database.playlists();
+      console.log("currentlist:",playlists)
+      const newPlaylist = playlists.filter(playlist => playlist.id !== playlistId);
+      if (!newPlaylist) {
+        throw new Error(`Playlist with ID ${playlistId} not found.`);
+      }
+      playlists.length = 0; 
+      newPlaylist.forEach(playlist => playlists.push(playlist));
+      fs.writeFileSync('src/common/db/playlists.json', JSON.stringify(newPlaylist, null, 2));
+      console.log("updated list:",newPlaylist)
+      return newPlaylist;
+    } catch (error) {
+      console.error('Error removing video from playlist:', error);
+      return [];
+    }
+
+
+  },
 
   addVidToList:(videoId: number, listId: number):Boolean=>{
 
