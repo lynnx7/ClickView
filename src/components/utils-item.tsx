@@ -27,6 +27,37 @@ interface RemoveButtonProps {
     setPlaylist: Function;
   }
 
+  interface RemovePlaylistProps {
+    id: Number;
+    setPlaylist:Function;
+  }
+
+  export function RemovePlaylistButton ({ id,setPlaylist}: RemovePlaylistProps) {
+
+    async function fetchData() {
+        try {
+            const response = await fetch(`/api/playlists`, {
+              method: 'DELETE',
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({"id":id}),
+            });
+            const data = await response.json();
+            console.log(data)
+            setPlaylist(data)
+            console.log('Video deleted successfully');
+          } catch (error) {
+            console.error('Error deleting video:', error);
+          }
+      }
+
+    return (
+      <Button variant="secondary" onClick={fetchData}>Remove</Button>
+    );
+};
+
+  
   export function NewPlaylist ({setPlaylist}: newPlaylistProps) {
 
     const [creating,setCreating] = useState(false)

@@ -33,7 +33,7 @@ export default function PlaylistsPage() {
       {playlist ? (
         <div>
         {playlist.map((list, index) => (
-          <PlaylistItem key={list.id} playlist={list} />
+          <PlaylistItem key={list.id} playlist={list} setPlaylist={setPlaylist}/>
           
         ))}
         </div>
