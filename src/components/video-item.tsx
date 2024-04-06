@@ -1,4 +1,4 @@
-import { Col, Image, Row } from 'react-bootstrap';
+import { Col, Image, Row,Button } from 'react-bootstrap';
 import { Video } from '../interfaces/video';
 
 import {AddVideoButton, RemoveVideoButton} from '@/components/utils-item';
@@ -14,10 +14,6 @@ interface VideoItemProps {
   setSelectName: Function
 }
 
-interface VideoItemProps {
-  video: Video;
-}
-
 export default function VideoItem(props: VideoItemProps) {
   const {
     video,
@@ -28,6 +24,8 @@ export default function VideoItem(props: VideoItemProps) {
     setSelectVid,
     setSelectName
   } = props;
+
+  
 
   return (
     <Row>
@@ -41,6 +39,7 @@ export default function VideoItem(props: VideoItemProps) {
                   <AddVideoButton handleShow={handleShow} setSelectVid={setSelectVid} vid={video.id} setSelectName={setSelectName}
                   selectName={video.name}
                   /> }
+        
       </Col>
     </Row>
   )
