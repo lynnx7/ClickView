@@ -31,7 +31,8 @@ export default function VideosPage() {
 
     fetchData();
   }, []);
-  
+
+
   const [playlist, setPlaylist] = useState<any[]>([]);
 
   useEffect(() => {
@@ -78,6 +79,7 @@ export default function VideosPage() {
                                         listId={list.id}
                                         handleClose={handleClose}
                                         listName={list.name}
+                                        setPlaylist={setPlaylist}
                                       />
                                       <br/>
                                     </>

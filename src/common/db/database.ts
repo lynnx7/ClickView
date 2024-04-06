@@ -10,7 +10,7 @@ export const Database = {
     return require('./videos.json');
   },
 
-  addVidToList:(videoId: number, listId: number):Boolean=>{
+  addVidToList:(videoId: number, listId: number):Playlist[]=>{
 
     const playlists = Database.playlists();
     const playlistIndex = playlists.findIndex(playlist => playlist.id === listId);
@@ -26,7 +26,7 @@ export const Database = {
 
     fs.writeFileSync('src/common/db/playlists.json', JSON.stringify(playlists, null, 2));
 
-    return true
+    return playlists
 
   },
 

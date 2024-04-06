@@ -17,6 +17,7 @@ interface addPlaylistProps {
   listId: Number;
   listName: String;
   handleClose: Function;
+  setPlaylist:Function
 }
 
 interface newVideoProps {
@@ -33,7 +34,7 @@ interface RemovePlaylistProps {
   setPlaylist:Function;
 }
 
-  export function AddPlaylistButton({videoId,listId,listName,handleClose}: addPlaylistProps){
+  export function AddPlaylistButton({videoId,listId,listName,handleClose,setPlaylist}: addPlaylistProps){
 
     async function fetchData() {
       try {
@@ -46,8 +47,9 @@ interface RemovePlaylistProps {
             body: JSON.stringify({"videoId":videoId,"listId":listId}),
           });
           const data = await response.json();
+          setPlaylist(data)
           console.log(data)
-          handleClose(data)
+          handleClose()
           console.log('Video deleted successfully');
         } catch (error) {
           console.error('Error deleting video:', error);

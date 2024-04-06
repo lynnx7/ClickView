@@ -39,7 +39,8 @@ export default function PlaylistPage({ params }: { params: { id: string } }) {
         <div>
         {videolist.map((video, index) => (
           <VideoItem key={index} video={video} inList={true} listId={Number(params.id)} setVideolist={setVideolist} 
-          handleShow={() => true} setSelectVid={() => true} setSelectName={() => true} />
+          handleShow={() => true} setSelectVid={() => true} setSelectName={() => true}
+          />
           
         ))}
         </div>
